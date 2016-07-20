@@ -1,0 +1,12 @@
+{
+  "name": "BlendChar",
+  "version": "1.0.0",
+  "description": "BlendChar",
+  "main": "main.js",
+  "server": {
+    "autoIP": true,
+    "port": 9527,
+    "host": "localhost",
+    "wsPort": "9696"
+  }
+}
