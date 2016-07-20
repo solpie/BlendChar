@@ -14,4 +14,11 @@ export class DashboardView extends BasePanelView {
             console.log(param);
         });
     }
+
+    onSync() {
+        console.log('onSync');
+        this.$http.get('/blendchar/armature/sync', (res)=> {
+            console.log(res);
+        });
+    }
 }
