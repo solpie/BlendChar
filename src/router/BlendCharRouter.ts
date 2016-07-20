@@ -51,6 +51,33 @@ bsCmdMap[`${EventId.bs_initDashboard}`] = (param) => {
     console.log('bs_initDashboard', param.bpyData);
 };
 ////////////////////////////////////////////////////////
+//////////////select bone in pose mode///////////
+csCmdMap[`${EventId.cs_selectObjBone}`] = (param) => {
+    execInfo.push(selectObjBone(param.obj, param.bone));
+};
+var selectObjBone = (objName, boneName)=> {
+    return `
+import bpy
+def selectBone(objName,boneName):
+    #select armature and active
+    bpy.ops.object.mode_set(mode="OBJECT",toggle=False)
+    for obj in bpy.context.scene.objects:
+        obj.select = False
+    rig = bpy.data.objects[objName]
+    rig.select = True
+    bpy.context.scene.objects.active = rig
+    
+    bpy.ops.object.mode_set(mode="POSE",toggle=False)
+    bpy.ops.pose.select_all(action='SELECT')
+    armature = bpy.context.active_bone.id_data
+    bpy.ops.pose.select_all(action='DESELECT')
+
+    armature.bones[boneName].select =True
+    
+selectBone('${objName}','${boneName}')
+`
+};
+////////////////////////////////////
 blendCharRouter.post('/:cmdId', (req:any, res:any)=> {
     if (!req.body) return res.sendStatus(400);
     var cmdId = req.params.cmdId;

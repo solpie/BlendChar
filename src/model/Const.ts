@@ -12,6 +12,7 @@ export enum EventId{
     initDashboard = 1000,
     cs_initDashboard,
     bs_initDashboard,
+    cs_selectObjBone,
     end
 }
 export var ServerConf:any = {isDev: false};

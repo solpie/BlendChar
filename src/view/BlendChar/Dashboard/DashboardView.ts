@@ -21,4 +21,15 @@ export class DashboardView extends BasePanelView {
             console.log(res);
         })
     }
+
+    onRunScript() {
+        console.log('onRunScript');
+    }
+
+    onSelectBone() {
+        console.log('onSelectBone');
+        this.$http.post(`/blendchar/${EventId.cs_selectObjBone}`, {obj: ".Rig", bone: 'Shin_R'}, (res)=> {
+            console.log(res);
+        })
+    }
 }
