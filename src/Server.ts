@@ -1,6 +1,7 @@
 import {getIPAddress} from "./utils/NodeJsFunc";
 import {blendCharRouter} from "./router/BlendCharRouter";
 import {ServerConf} from "./model/Const";
+import {execRouter} from "./router/ExecRouter";
 var dataObj:any;
 let localhost;
 /**
@@ -78,6 +79,8 @@ export class WebServer {
         });
 
         app.use('/blendchar', blendCharRouter);
+        app.use('/exec', execRouter);
+
         app.listen(ServerConf.port, () => {
             this.initSocketIO();
             //and... we're live
