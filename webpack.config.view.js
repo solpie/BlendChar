@@ -4,8 +4,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
-        "static/admin/index": "./src/view/admin/index.ts",
-        "static/panel/index": "./src/view/panel/index.ts"
+        "static/blendchar/index": "./src/view/BlendChar/index.ts"
     },
     output: {
         path: './resources/app',

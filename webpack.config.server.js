@@ -34,9 +34,7 @@ module.exports = {
                 context: 'src/',
                 from: 'view/**/*.ejs'
             },
-
-            {context: '.', from: 'static/**/*'},
-            // {context: '.', from: 'db/**/*'},
+            {context: 'src', from: 'static/**/*'},
             {from: 'src/package.json'},
             {from: 'src/index.html'}
         ])

@@ -1,24 +1,19 @@
 import {getIPAddress} from "./utils/NodeJsFunc";
+import {blendCharRouter} from "./router/BlendCharRouter";
+import {ServerConf} from "./model/Const";
 var dataObj:any;
 let localhost;
-export var ServerConf:any = {isDev: false};
 /**
  * WebServer
  */
 export class WebServer {
-    _path:any;
     serverConf:any;
     socketIO:any;
-
     constructor(callback?:any) {
         this.initEnv(callback);
         this.initGlobalFunc();
-        this.test();
     }
 
-    test() {
-        // ExternalInfo.importHuiTi();
-    }
 
     initGlobalFunc() {
         // this._path = _path;
@@ -57,52 +52,41 @@ export class WebServer {
     initServer() {
         var express:any = require('express');
         var app = express();
+
         // view engine setup
         app.set('views', "./resources/app/view");
         app.set('view engine', 'ejs');
 
         app.use(express.static("./resources/app/static"));//
-        // app.use('/static', express.static(_path("./app/static")));//
-        // app.use(express.static(_path("./app/db")));//
-        // var urlencodedParser = bodyParser.urlencoded({
-        //     extended: false
-        //     , limit: '55mb'
-        // });
-        // var morgan = require('morgan');
-        // app.use(morgan('dev'));                     // log every request to the console
         var bodyParser = require('body-parser');
         app.use(bodyParser.urlencoded({extended: false, limit: '55mb'}));// create application/x-www-form-urlencoded parser
         app.use(bodyParser.json({limit: '50mb'}));
 
-
-        app.all("*", function (req:any, res:any, next:any) {
-            res.header('Access-Control-Allow-Origin', '*');
-            res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
-            res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-            if (req.method == 'OPTIONS') {
-                res.send(200);
-            } else {
-                next();
-            }
-        });
+        // app.all("*", function (req:any, res:any, next:any) {
+        //     res.header('Access-Control-Allow-Origin', '*');
+        //     res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
+        //     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+        //     if (req.method == 'OPTIONS') {
+        //         res.send(200);
+        //     } else {
+        //         next();
+        //     }
+        // });
 
         app.get('/', function (req:any, res:any) {
-            res.redirect('/admin');
+            res.redirect('/blendchar');
         });
 
-
-        // app.use('/admin', adminRouter);
+        app.use('/blendchar', blendCharRouter);
         app.listen(ServerConf.port, () => {
             this.initSocketIO();
             //and... we're live
-            console.log("server on:  ws port:");
+            console.log(`server on:${ServerConf.port}  ws port:${ServerConf.wsPort}`);
         });
     }
 
     initSocketIO() {
         this.socketIO = require('socket.io')(ServerConf.wsPort);
-
     }
 }
-export var serverConf = ServerConf;
 export var webServer = new WebServer();
