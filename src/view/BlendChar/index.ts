@@ -1,5 +1,6 @@
 import {VueEx} from "../VueEx";
 import {DashboardView} from "./Dashboard/DashboardView";
+import {PanelId} from "../../model/Const";
 declare var io:any;
 declare var host:any;
 declare var wsPort:any;
@@ -27,19 +28,22 @@ router.map({
     '/': {
         component: DashboardView,
         name: 'dashboard'
+    },
+    '/blendchar': {
+        component: DashboardView,
+        name: 'dashboard'
     }
 });
 router.afterEach((transition) => {
     var toPath = transition.to.path;
     router.app.isOp = /\/op/.test(toPath);
-    // if (/\/stage/.test(toPath)) {
-    //     router.app.pid = PanelId.stagePanel;
-    // } else if (/\/act/.test(toPath)) {
-    //     router.app.pid = PanelId.actPanel;
-    // } else if (/\/screen/.test(toPath)) {
-    //     router.app.pid = PanelId.screenPanel;
-    // }
-    // console.log('after each!!!', toPath);
+    if (/\/blendchar/.test(toPath)) {
+        router.app.pid = PanelId.blendchar;
+    }
+    else {
+        router.app.pid = PanelId.blendchar;
+    }
+    console.log('router.afterEach', transition);
 });
 router.start(Panel, '#panel');
 console.log('start router');

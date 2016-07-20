@@ -1,5 +1,6 @@
 export const PanelId = {
     dashboard: 'dashboard',
+    blendchar: 'blendchar',//do not modify
     playerPanel: 'player'
 };
 export const ViewConst = {
@@ -9,6 +10,11 @@ export const ViewConst = {
 
 export enum EventId{
     initDashboard = 1000,
+    cs_initDashboard,
+    bs_initDashboard,
     end
 }
 export var ServerConf:any = {isDev: false};
+export function ScParam(param) {
+    return param
+}

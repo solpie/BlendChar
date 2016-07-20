@@ -1,5 +1,5 @@
 import {getIPAddress} from "./utils/NodeJsFunc";
-import {blendCharRouter} from "./router/BlendCharRouter";
+import {blendCharRouter, initWebSocket} from "./router/BlendCharRouter";
 import {ServerConf} from "./model/Const";
 import {execRouter} from "./router/ExecRouter";
 var dataObj:any;
@@ -89,7 +89,8 @@ export class WebServer {
     }
 
     initSocketIO() {
-        this.socketIO = require('socket.io')(ServerConf.wsPort);
+        initWebSocket();
+        // this.socketIO = require('socket.io')(ServerConf.wsPort);
     }
 }
 export var webServer = new WebServer();

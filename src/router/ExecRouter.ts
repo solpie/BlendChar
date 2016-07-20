@@ -6,6 +6,7 @@ execRouter.get('/', function (req:any, res:any) {
 });
 class ExecInfo {
     code:string = "import bpy;bpy.ops.object.select_all()";
+    data:any;
 
     push(code:string) {
         this.code = code;

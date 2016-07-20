@@ -11,14 +11,14 @@ export class DashboardView extends BasePanelView {
     ready() {
         var io = super.ready(PanelId.dashboard);
         io.on(`${EventId.initDashboard}`, (param)=> {
-            console.log(param);
+            console.log('initDashboard', param);
         });
     }
 
     onSync() {
         console.log('onSync');
-        this.$http.get('/blendchar/armature/sync', (res)=> {
+        this.$http.post(`/blendchar/${EventId.cs_initDashboard}`, (res)=> {
             console.log(res);
-        });
+        })
     }
 }
