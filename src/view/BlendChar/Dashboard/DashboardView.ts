@@ -1,6 +1,7 @@
 import {BasePanelView} from "../BasePanelView";
 import {PanelId, EventId} from "../../../model/Const";
 import {Component} from "../../VueEx";
+import {selectObjBone} from "../ops/armature";
 @Component({
     template: require('./dashboard.html'),
     props: {bpyCode: {}}
@@ -24,11 +25,13 @@ export class DashboardView extends BasePanelView {
 
     onRunScript() {
         console.log('onRunScript');
+
     }
 
     onSelectBone() {
         console.log('onSelectBone');
-        this.$http.post(`/blendchar/${EventId.cs_selectObjBone}`, {obj: ".Rig", bone: 'Shin_R'}, (res)=> {
+        var code = selectObjBone('.Rig', 'Shin_R');
+        this.$http.post(`/blendchar/${EventId.cs_runCode}`, {code: code}, (res)=> {
             console.log(res);
         })
     }
