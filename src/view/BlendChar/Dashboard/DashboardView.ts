@@ -25,7 +25,6 @@ export class DashboardView extends BasePanelView {
 
     onRunScript() {
         console.log('onRunScript');
-
     }
 
     onSelectBone() {

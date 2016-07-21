@@ -7,7 +7,7 @@ bl_info = {
     "author": "SolPie",
     "version": (1, 0),
     "blender": (2, 7, 7),
-    "location": "start BlendCharServer and run.BlendCharExec Remote Web Browser 9527",
+    "location": "Remote Web Browser 9527",
     "description": "misc tool 2",
     "warning": "",
     "category": "Rig"}
@@ -49,10 +49,13 @@ class BlendCharExec(bpy.types.Operator):
             server_port = addon_prefs.port
             try:
                 from urllib.request import urlopen
-                code = urlopen("http://127.0.0.1:"+str(server_port) +"/exec").read()
+                code = urlopen("http://127.0.0.1:"+str(server_port) +"/exec", timeout=1).read()
                 if code:
                     exec(compile(code, '<string>', 'exec'))
-            except:pass
+            except:
+                print('stop BlendChar')
+                self.cancel(context)
+                pass
         return {'PASS_THROUGH'}
 
     def execute(self, context):
